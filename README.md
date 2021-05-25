@@ -73,17 +73,17 @@
 
 3. 调用collectionViewContentSize方法，根据第一点中的计算来返回所有内容的滚动区域大小。
 
-ps：CGSize中为啥x的值为0 ？
-
-```
-//MARK: 返回collectionViewView的contentSize
-
 - (CGSize)collectionViewContentSize
 {
-    CGSize size =  CGSizeMake(0, self.maxY + [self edgeInsets].bottom);
-    NSLog(@"__ssss__%@", NSStringFromCGSize(size));
-    return size;
+    //竖向瀑布流 item等宽不等高
     
+	//这个地方就是设置的collectionView的 ContentSize的大小（懵B了[苦笑]）
+    CGFloat tempX = 0;
+    CGSize size = CGSizeMake(tempX, self.maxY + [self edgeInsets].bottom);
+     
+    NSLog(@"___sss___%@", NSStringFromCGSize(size));
+    
+    return size;
 }
 
 ```
