@@ -89,9 +89,9 @@ struct {
 
 //MARK: 返回rect 范围内的item的布局数组（这个方法会频繁调用）
 
-- (NSArray <UICollectionViewLayoutAttributes *> *)layoutAttributesForElementInRect:(CGRect)rect
+- (NSArray<__kindof UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect
 {
-	return self.attrsArray;
+    return self.attrsArray;
 }
 
 //MARK: 返回indexPath位置的item布局属性
@@ -147,7 +147,37 @@ struct {
 
 - (CGSize)collectionViewContentSize
 {
-	return  CGSizeMake(0, self.maxY + [self edgeInsets].bottom);
+    //竖向瀑布流 item等宽不等高
+    /**
+     如果是等宽不等高，size的 x可以是任意值，我测试了下，都没有问题
+     我看有大佬写的是 self.collectionView.bounds.size.width，也是可以的
+     
+     如果是等高不等宽的时候，宽可以为一个固定值
+     可以看下这个大佬的文章 https://www.jianshu.com/p/9fafd89c97ad
+     */
+    
+    CGFloat tempX = 0;
+    tempX = self.collectionView.bounds.size.width;
+    tempX = 1000;
+    CGSize size = CGSizeMake(tempX, self.maxY + [self edgeInsets].bottom);
+     
+    NSLog(@"___sss___%@", NSStringFromCGSize(size));
+    
+    
+    return size;
+}
+
+- (CGSize)collectionViewContentSize22
+{
+    //NSInteger mostColumn = [self columnOfMostHeight];
+    //所有列当中最大的高度
+    //CGFloat mostHeight = [self.columnHeights[mostColumn] floatValue];
+    
+    CGSize size = CGSizeMake(self.collectionView.bounds.size.width, self.maxY + [self edgeInsets].top + [self edgeInsets].bottom);
+     
+    NSLog(@"___sss___%@", NSStringFromCGSize(size));
+    
+    return size;
 }
 
 //MARK:

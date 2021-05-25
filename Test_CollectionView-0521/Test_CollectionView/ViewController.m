@@ -68,20 +68,18 @@
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
     CGFloat height = [UIScreen mainScreen].bounds.size.height;
 
-    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    flowLayout.minimumLineSpacing = 5.0;
-    flowLayout.minimumInteritemSpacing = 5.0;
-    flowLayout.sectionInset = UIEdgeInsetsMake(0, 5, 0, 5);
-    flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
+//    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+//    flowLayout.minimumLineSpacing = 5.0;
+//    flowLayout.minimumInteritemSpacing = 5.0;
+//    flowLayout.sectionInset = UIEdgeInsetsMake(0, 5, 0, 5);
+//    flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
 
     PFCollectionViewLayout *layout = [[PFCollectionViewLayout alloc] init];
     layout.delegate = self;
 
 
 
-    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, width, height) collectionViewLayout:flowLayout];
-
-
+    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, width, height) collectionViewLayout:layout];
 
     collectionView.backgroundColor = [UIColor whiteColor];
     collectionView.delegate = self;
@@ -187,8 +185,18 @@
     CGFloat shopHeight = [shop.h doubleValue];
     CGFloat shopwidth = [shop.w doubleValue];
     
-    return shopHeight * width / shopwidth;
+    //宽高比
+    
+    CGFloat cellHeight = shopHeight * width / shopwidth;
+    
+    return cellHeight;
 
+}
+
+/**瀑布流显示的列数*/
+- (NSInteger)columnCountOfWaterFallLayout:(PFCollectionViewLayout *)flowLayout
+{
+    return 2;
 }
 
 
